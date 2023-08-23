@@ -8,12 +8,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/* Entidade - Usuário 
+ * 
+ * As annotations Entity e Table são para ajudar o JPA no mapeamento da entidade
+ **/
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
 
+    // Número de série da entidade
     private static final long serialVersionUID = 1L;
 
+    /*
+     * Atributos da Entidade
+     * 
+     * As annotations Id e GeneratedValue ajudam o JPA no mapeamento da chave
+     * primária da entidade no atributo ID
+     **/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +33,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    // Constructors
+    // Construtores
     public User() {
     }
 
@@ -76,6 +87,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    // Identificador dos objetos User
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -84,6 +96,7 @@ public class User implements Serializable {
         return result;
     }
 
+    // Comparador da entidade User, através do atributo ID
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
