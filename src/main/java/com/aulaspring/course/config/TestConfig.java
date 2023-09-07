@@ -34,7 +34,9 @@ public class TestConfig implements CommandLineRunner {
 
     /*
      * Método referente ao implements CommandLineRunner que será executado
-     * com o inicio da aplicação
+     * com o inicio da aplicação.
+     * 
+     * Funcionará nesse momento apenas como um injetor de dados(Data seeding)
      */
     @Override
     public void run(String... args) throws Exception {
