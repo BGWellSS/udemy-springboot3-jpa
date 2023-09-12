@@ -45,7 +45,7 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    // Getters and Setters
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -106,5 +106,4 @@ public class Order implements Serializable {
             return false;
         return true;
     }
-
 }
