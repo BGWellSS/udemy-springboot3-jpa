@@ -33,6 +33,16 @@ public class OrderItem implements Serializable {
     this.price = price;
   }
 
+  // Metodo de exemplo
+  /**
+   * Para o resultado do metodo aparecer no Json gerado pela chamada
+   * devemos iniciar o nome do metodo com 'get', pois isso é um padrão do Java
+   * Enterprise
+   */
+  public Double getSubTotal() {
+    return (price * quantity);
+  }
+
   // Getters e Setters
   @JsonIgnore
   public Order getOrder() {

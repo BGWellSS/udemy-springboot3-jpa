@@ -56,6 +56,15 @@ public class Order implements Serializable {
     this.client = client;
   }
 
+  // Metodo de exemplo
+  public Double getTotal() {
+    double sum = 0.0;
+    for (OrderItem elementOrderItem : items) {
+      sum += elementOrderItem.getSubTotal();
+    }
+    return sum;
+  }
+
   // Getters e Setters
   public Long getId() {
     return id;
