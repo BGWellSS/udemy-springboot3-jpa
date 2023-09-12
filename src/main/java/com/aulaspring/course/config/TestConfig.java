@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.aulaspring.course.entities.Category;
 import com.aulaspring.course.entities.Order;
 import com.aulaspring.course.entities.OrderItem;
+import com.aulaspring.course.entities.Payment;
 import com.aulaspring.course.entities.Product;
 import com.aulaspring.course.entities.User;
 import com.aulaspring.course.entities.enums.OrderStatus;
@@ -105,5 +106,14 @@ public class TestConfig implements CommandLineRunner {
 
     // Salvamento dos dados
     orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+    // Adicao de dados de teste (Data seeding) = Payment
+    Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+
+    // Associacao do Payment(pagamento) com Order(pedido) - Associacao 1 para 1
+    o1.setPayment(pay1);
+
+    // Salvamento dos dados
+    orderRepository.save(o1);
   }
 }
