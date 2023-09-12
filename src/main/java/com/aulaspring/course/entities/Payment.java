@@ -3,6 +3,8 @@ package com.aulaspring.course.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,7 @@ public class Payment implements Serializable {
 
   @OneToOne
   @MapsId
+  @JsonIgnore
   private Order order;
 
   // Construtores
