@@ -38,4 +38,18 @@ public class UserService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    // Elemento do CRUD - UPDATE
+    public User update(Long id, User obj) {
+        User entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    // Metodo auxiliar para atualizacao dos dados
+    private void updateData(User entity, User obj) {
+        entity.setName(obj.getName());
+        entity.setEmail(obj.getEmail());
+        entity.setPhone(obj.getPhone());
+    }
 }
