@@ -1,13 +1,17 @@
 package com.aulaspring.course.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.aulaspring.course.entities.User;
 import com.aulaspring.course.services.UserService;
@@ -17,17 +21,19 @@ import com.aulaspring.course.services.UserService;
 @RequestMapping(value = "/users")
 public class UserResource {
 
-    // Conexão com o serviço
     @Autowired
     private UserService service;
 
     /*
-     * Método endpoint para acesso aos usuários
-     * O tipo de retorno é ResponseEntity<T> do Spring que é responsavel por
-     * retornar requisições web
+     * Metodo endpoint para acesso aos usuarios
+     * O tipo de retorno eh ResponseEntity<T> do Spring que eh responsavel por
+     * retornar requisicoes web
      * 
-     * Para indicar que o método será usado pra responder requisições GET do HTTP
-     * utilizamos a annotation GetMapping
+     * Para indicar que o metodo sera usado pra responder as requisicoes GET do
+     * endpoint '/users', utilizamos a annotation GetMapping. Retornando todos os
+     * Users
+     * 
+     * Elemento do CRUD - READ
      **/
     @GetMapping
     public ResponseEntity<List<User>> findAll() {
@@ -37,9 +43,34 @@ public class UserResource {
         return ResponseEntity.ok().body(userList);
     }
 
+    /**
+     * Mapeamento para o endpoint '/users/id' para o retorno de um unico User
+     * em uma requisicao GET
+     * 
+     * Elemento do CRUD - READ
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
         User obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    /**
+     * Mapeamento para a requisicao POST para o endpoint '/users'
+     * 
+     * Elemento do CRUD - CREATE
+     */
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj) {
+        obj = service.insert(obj);
+        /**
+         * Como boa pratica devemos retornar uma requisicao POST com o
+         * codigo HTTP 201, e para um boa aplicacao a URL(location) de onde esse novo
+         * recurso foi criado. Para isso usamos o codigo a seguir para atender esses
+         * requisitos
+         */
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }

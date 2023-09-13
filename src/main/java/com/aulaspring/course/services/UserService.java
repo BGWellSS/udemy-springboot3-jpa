@@ -19,6 +19,7 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    // Elemento do CRUD - READ
     public List<User> findAll() {
         return repository.findAll();
     }
@@ -26,5 +27,10 @@ public class UserService {
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
         return obj.get();
+    }
+
+    // Elemento do CRUD - CREATE
+    public User insert(User obj) {
+        return repository.save(obj);
     }
 }
