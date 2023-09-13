@@ -17,17 +17,20 @@ import com.aulaspring.course.services.ProductService;
 @RequestMapping(value = "/products")
 public class ProductResource {
 
-  // Conexão com o serviço
   @Autowired
   private ProductService service;
 
   /*
-   * Método endpoint para acesso aos usuários
-   * O tipo de retorno é ResponseEntity<T> do Spring que é responsavel por
-   * retornar requisições web
+   * Metodo endpoint para acesso aos Products
+   * O tipo de retorno sera ResponseEntity<T> do Spring que e responsavel
+   * por retornar requisições web
    * 
-   * Para indicar que o método será usado pra responder requisições GET do HTTP
-   * utilizamos a annotation GetMapping
+   * Utilizamos a annotation GetMapping para indicar que o metodo sera
+   * usado pra responder as requisicoes HTTP - GET do endpoint '/products'
+   * 
+   * O retorno sera de todos itens de Product casastrados
+   * 
+   * Elemento do CRUD - READ
    **/
   @GetMapping
   public ResponseEntity<List<Product>> findAll() {
@@ -37,6 +40,12 @@ public class ProductResource {
     return ResponseEntity.ok().body(productList);
   }
 
+  /**
+   * Mapeamento para o endpoint '/products/id' para o retorno de um
+   * unico Product em uma requisicao HTTP - GET
+   * 
+   * Elemento do CRUD - READ
+   */
   @GetMapping(value = "/{id}")
   public ResponseEntity<Product> findById(@PathVariable Long id) {
     Product obj = service.findById(id);

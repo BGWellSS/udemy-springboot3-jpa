@@ -10,8 +10,8 @@ import com.aulaspring.course.entities.User;
 import com.aulaspring.course.repositories.UserRepository;
 
 /**
- * Anotattion Service - Registrar no spring que a classe será usada como um
- * serviço
+ * Anotattion Service - Registrar no spring que a classe sera usada como um
+ * servico
  */
 @Service
 public class UserService {

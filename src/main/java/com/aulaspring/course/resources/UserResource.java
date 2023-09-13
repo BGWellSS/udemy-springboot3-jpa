@@ -27,7 +27,7 @@ public class UserResource {
   private UserService service;
 
   /*
-   * Metodo endpoint para acesso aos usuarios
+   * Metodo endpoint para acesso aos Users
    * O tipo de retorno sera ResponseEntity<T> do Spring que e responsavel
    * por retornar requisicoes web
    * 
