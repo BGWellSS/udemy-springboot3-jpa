@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +30,8 @@ public class UserResource {
      * O tipo de retorno eh ResponseEntity<T> do Spring que eh responsavel por
      * retornar requisicoes web
      * 
-     * Para indicar que o metodo sera usado pra responder as requisicoes GET do
-     * endpoint '/users', utilizamos a annotation GetMapping. Retornando todos os
+     * Para indicar que o metodo sera usado pra responder as requisicoes HTTP - GET
+     * do endpoint '/users', utilizamos a annotation GetMapping. Retornando todos os
      * Users
      * 
      * Elemento do CRUD - READ
@@ -45,7 +46,7 @@ public class UserResource {
 
     /**
      * Mapeamento para o endpoint '/users/id' para o retorno de um unico User
-     * em uma requisicao GET
+     * em uma requisicao HTTP - GET
      * 
      * Elemento do CRUD - READ
      */
@@ -56,7 +57,7 @@ public class UserResource {
     }
 
     /**
-     * Mapeamento para a requisicao POST para o endpoint '/users'
+     * Mapeamento para a requisicao HTTP - POST para o endpoint '/users'
      * 
      * Elemento do CRUD - CREATE
      */
@@ -65,12 +66,24 @@ public class UserResource {
         obj = service.insert(obj);
         /**
          * Como boa pratica devemos retornar uma requisicao POST com o
-         * codigo HTTP 201, e para um boa aplicacao a URL(location) de onde esse novo
+         * codigo HTTP 201 e tambem a URL(location) de onde esse novo
          * recurso foi criado. Para isso usamos o codigo a seguir para atender esses
          * requisitos
          */
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
+    }
+
+    /**
+     * Mapeamento para o endpoint '/users/id' para a remocao de um User por ID
+     * em uma requisicao HTTP - DELETE
+     * 
+     * Elemento do CRUD - DELETE
+     */
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

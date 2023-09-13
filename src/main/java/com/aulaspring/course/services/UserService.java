@@ -33,4 +33,9 @@ public class UserService {
     public User insert(User obj) {
         return repository.save(obj);
     }
+
+    // Elemento do CRUD - DELETE
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
